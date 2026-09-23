@@ -2,15 +2,20 @@ import SwiftUI
 
 @main
 struct NetHUDApp: App {
-    @StateObject private var monitor = TrafficMonitor()
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
-        MenuBarExtra {
-            MenuBarView(monitor: monitor)
-                .frame(minWidth: 320)
-        } label: {
-            MenuBarLabel(monitor: monitor)
+        Settings {
+            EmptyView()
         }
-        .menuBarExtraStyle(.window)
+    }
+}
+
+final class AppDelegate: NSObject, NSApplicationDelegate {
+    private let monitor = TrafficMonitor()
+    private var statusItemController: StatusItemController?
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        statusItemController = StatusItemController(monitor: monitor)
     }
 }
