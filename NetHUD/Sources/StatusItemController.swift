@@ -23,6 +23,8 @@ final class StatusItemController: NSObject {
         popover.contentViewController = NSHostingController(rootView: MenuBarView(monitor: monitor))
 
         if let button = statusItem.button {
+            button.toolTip = "NetHUD — live network speeds"
+            button.setAccessibilityLabel("NetHUD network speeds")
             button.target = self
             button.action = #selector(togglePopover(_:))
         }

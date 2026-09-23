@@ -28,10 +28,12 @@ A tiny macOS menu bar app that shows live network speeds:
 
 ## Screenshot
 
-<!-- TODO: replace with a real screenshot of the menu bar + dropdown.
-     Save it as Docs/screenshot.png and it will render automatically. -->
+<!-- TODO: screenshot the menu bar + dropdown (Shift-Cmd-4), save as
+     Docs/screenshot.png, then re-enable:
 
 ![NetHUD screenshot](Docs/screenshot.png)
+
+-->
 
 ## Install
 

@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 
 struct InterfaceSpeed: Identifiable, Equatable {
@@ -43,6 +44,10 @@ final class TrafficMonitor: ObservableObject {
     private var lastSampleDate: Date?
     private var primaryInterface: String?
     private var primaryInterfaceRefreshedAt = Date.distantPast
+    private var wakeObserver: NSObjectProtocol?
+
+    /// `/sbin/route` runs off the main thread so its ~5–20 ms never hitches the UI.
+    private let routeQueue = DispatchQueue(label: "personal.hamza.nethud.route", qos: .utility)
 
     /// Loopback / peer-to-peer interfaces we never want to count.
     private static let excludedInterfaces: Set<String> = [
@@ -59,12 +64,33 @@ final class TrafficMonitor: ObservableObject {
            let restored = MenuBarTheme(rawValue: stored) {
             theme = restored
         }
+
+        // Re-baseline after the Mac wakes so the first post-sleep sample
+        // doesn't spread traffic across the whole sleep window.
+        wakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didWakeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.rebaseline()
+        }
+
         sample() // establish the baseline so the first tick already has a delta
         restartTimer()
     }
 
     deinit {
         timer?.invalidate()
+        if let wakeObserver {
+            NSWorkspace.shared.notificationCenter.removeObserver(wakeObserver)
+        }
+    }
+
+    /// Drops the previous sample so the next tick starts from a clean baseline.
+    private func rebaseline() {
+        lastCounters = nil
+        lastSampleDate = nil
+        sample()
     }
 
     private func restartTimer() {
@@ -185,33 +211,38 @@ final class TrafficMonitor: ObservableObject {
         guard Date().timeIntervalSince(primaryInterfaceRefreshedAt) > 15 else { return }
         primaryInterfaceRefreshedAt = Date()
 
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/sbin/route")
-        process.arguments = ["-n", "get", "default"]
-        let stdout = Pipe()
-        process.standardOutput = stdout
-        process.standardError = Pipe()
+        routeQueue.async { [weak self] in
+            var found: String?
 
-        do {
-            try process.run()
-            let data = stdout.fileHandleForReading.readDataToEndOfFile()
-            process.waitUntilExit()
+            let process = Process()
+            process.executableURL = URL(fileURLWithPath: "/sbin/route")
+            process.arguments = ["-n", "get", "default"]
+            let stdout = Pipe()
+            process.standardOutput = stdout
+            process.standardError = Pipe()
 
-            guard process.terminationStatus == 0,
-                  let output = String(data: data, encoding: .utf8) else {
-                primaryInterface = nil
-                return
-            }
+            do {
+                try process.run()
+                let data = stdout.fileHandleForReading.readDataToEndOfFile()
+                process.waitUntilExit()
 
-            for line in output.split(separator: "\n") {
-                let trimmed = line.trimmingCharacters(in: .whitespaces)
-                if let range = trimmed.range(of: "interface:") {
-                    let candidate = String(trimmed[range.upperBound...]).trimmingCharacters(in: .whitespaces)
-                    primaryInterface = candidate.isEmpty ? nil : candidate
+                if process.terminationStatus == 0,
+                   let output = String(data: data, encoding: .utf8) {
+                    for line in output.split(separator: "\n") {
+                        let trimmed = line.trimmingCharacters(in: .whitespaces)
+                        if let range = trimmed.range(of: "interface:") {
+                            let candidate = String(trimmed[range.upperBound...]).trimmingCharacters(in: .whitespaces)
+                            found = candidate.isEmpty ? nil : candidate
+                        }
+                    }
                 }
+            } catch {
+                found = nil
             }
-        } catch {
-            primaryInterface = nil
+
+            DispatchQueue.main.async {
+                self?.primaryInterface = found
+            }
         }
     }
 
