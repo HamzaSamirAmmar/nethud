@@ -10,6 +10,10 @@ A tiny macOS menu bar app that shows live network speeds:
 ![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
+<p align="center">
+  <img src="Docs/hero.png" width="850" alt="NetHUD for macOS" />
+</p>
+
 ## Features
 
 - **Live upload/download speeds** in the menu bar, always visible
@@ -26,62 +30,55 @@ A tiny macOS menu bar app that shows live network speeds:
 - Reads byte counters via `getifaddrs()` — no permissions, no network extension,
   no third-party dependencies
 
-## Screenshot
+## Screenshots
 
-<!-- TODO: screenshot the menu bar + dropdown (Shift-Cmd-4), save as
-     Docs/screenshot.png, then re-enable:
+### Native Menu Bar
 
-![NetHUD screenshot](Docs/screenshot.png)
+Compact, monospaced live speed readout that never causes neighboring icons to jitter or shift:
 
--->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Docs/menubar-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="Docs/menubar-light.png">
+  <img alt="NetHUD in macOS Menu Bar" src="Docs/menubar-dark.png" width="480">
+</picture>
+
+### Detailed Popover
+
+Click the menu bar readout anytime to inspect interface breakdowns, session usage, and settings:
+
+<p align="center">
+  <img src="Docs/dropdown-dark.png" width="370" alt="NetHUD Dropdown — Dark Mode" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="Docs/dropdown-light.png" width="370" alt="NetHUD Dropdown — Light Mode" />
+</p>
+
+### Five Menu Bar Themes
+
+Choose the look that best complements your wallpaper, menu bar density, and MacBook notch:
+
+<p align="center">
+  <img src="Docs/themes.png" width="750" alt="NetHUD Themes" />
+</p>
 
 ## Install
 
 ### Homebrew
-
-The right command depends on your Homebrew version — check it with:
-
-```bash
-brew --version
-```
-
-**Homebrew 4.x or older** — the quarantine flag still exists, use it:
-
-```bash
-brew install --cask HamzaSamirAmmar/tap/nethud --no-quarantine
-```
-
-(Tip: `export HOMEBREW_CASK_OPTS="--no-quarantine"` in your shell profile
-makes it permanent for every cask.)
-
-**Homebrew 5.0+** (2025 and later) — the flag was removed, so install plain
-and clear the attribute once:
 
 ```bash
 brew install --cask HamzaSamirAmmar/tap/nethud
 xattr -d com.apple.quarantine /Applications/NetHUD.app
 ```
 
-**Not sure which one you have?** This check works on any version — if it
-prints anything, your brew supports the flag:
-
-```bash
-brew install --help | grep quarantine
-```
-
-Either way: NetHUD is ad-hoc signed (not notarized), so macOS blocks the
-downloaded copy on first launch until one of the above approves it. If the
-app ever refuses to open, run the `xattr` line once (or right-click the app
-in Finder → **Open** → **Open**) and you're set.
+NetHUD is ad-hoc signed (not notarized), so macOS blocks the downloaded copy
+on first launch — the `xattr` line clears that once and works on every
+Homebrew version. (On older Homebrew you can append `--no-quarantine` to the
+install command instead; right-click → **Open** → **Open** in Finder works too.)
 
 ### From a release
 
 Download `NetHUD.zip` from the [Releases](../../releases) page, unzip, and drag
-`NetHUD.app` to `/Applications`.
-
-> The app is not notarized, so macOS shows an "unidentified developer" warning
-> on first launch. Right-click the app → **Open** → **Open** to approve it once,
-> or install via Homebrew with `--no-quarantine` to skip the dance entirely.
+`NetHUD.app` to `/Applications`. Right-click the app → **Open** → **Open** to
+get past the first-launch warning.
 
 ### Build from source
 
