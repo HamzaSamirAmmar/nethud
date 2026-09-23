@@ -79,4 +79,4 @@ whole app.
 
 ## License
 
-[MIT](LICENSE) © 2026 hamza
+[MIT](LICENSE) © 2026 Hamza Ammar
