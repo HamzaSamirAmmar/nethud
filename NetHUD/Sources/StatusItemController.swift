@@ -43,10 +43,12 @@ final class StatusItemController: NSObject {
 
         let theme = monitor.theme
         let compact = theme.isCompact
-        let upload = "↑" + (compact ? Format.speedCompact(monitor.upSpeed) : Format.speed(monitor.upSpeed))
-        let download = "↓" + (compact ? Format.speedCompact(monitor.downSpeed) : Format.speed(monitor.downSpeed))
+        let upload = "↑" + (compact ? Format.speedCompactFixed(monitor.upSpeed) : Format.speedFixed(monitor.upSpeed))
+        let download = "↓" + (compact ? Format.speedCompactFixed(monitor.downSpeed) : Format.speedFixed(monitor.downSpeed))
 
-        let font = NSFont.monospacedDigitSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
+        // Fully monospaced font + fixed-width fields → the item's width
+        // never changes, so menu bar neighbors never shift around.
+        let font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
         let title = NSMutableAttributedString()
 
         if theme.showsUpload {

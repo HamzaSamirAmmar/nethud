@@ -4,6 +4,13 @@ All notable changes to NetHUD are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and the project uses [Semantic Versioning](https://semver.org).
 
+## [1.0.1] — 2026-09-23
+
+### Fixed
+- Menu bar label no longer shifts as traffic values change — speeds now render
+  in fixed-width fields with a fully monospaced font, so neighboring menu bar
+  items (clock, Control Center) stay perfectly still
+
 ## [1.0.0] — 2026-09-23
 
 ### Added

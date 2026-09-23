@@ -45,4 +45,45 @@ enum Format {
             return String(format: "%.2fG", bytesPerSecond / 1_073_741_824)
         }
     }
+
+    /// Fixed-width rate: **always exactly 9 characters** (" 999 B/s",
+    /// " 12.3 KB/s", "1.24 MB/s"). Pair with a monospaced font so the
+    /// menu bar item never changes width and never shoves neighbors around.
+    static func speedFixed(_ bytesPerSecond: Double) -> String {
+        let parts = Self.compactValueAndUnit(bytesPerSecond)
+        return padLeft(parts.value, to: 4) + " " + padRight(parts.unit, to: 4)
+    }
+
+    /// Fixed-width compact rate: **always exactly 5 characters**
+    /// ("9999B", "12.3K", "1.24M").
+    static func speedCompactFixed(_ bytesPerSecond: Double) -> String {
+        let parts = Self.compactValueAndUnit(bytesPerSecond)
+        return padLeft(parts.value, to: 4) + String(parts.unit.prefix(1))
+    }
+
+    /// Value scaled to at most 4 characters plus its unit family
+    /// (B/s, KB/s, MB/s, GB/s).
+    private static func compactValueAndUnit(_ bytesPerSecond: Double) -> (value: String, unit: String) {
+        switch bytesPerSecond {
+        case ..<1024:
+            return (String(format: "%.0f", bytesPerSecond), "B/s")
+        case ..<1_048_576:
+            let kb = bytesPerSecond / 1024
+            return (kb < 10 ? String(format: "%.2f", kb) : kb < 100 ? String(format: "%.1f", kb) : String(format: "%.0f", kb), "KB/s")
+        case ..<1_073_741_824:
+            let mb = bytesPerSecond / 1_048_576
+            return (mb < 10 ? String(format: "%.2f", mb) : mb < 100 ? String(format: "%.1f", mb) : String(format: "%.0f", mb), "MB/s")
+        default:
+            let gb = bytesPerSecond / 1_073_741_824
+            return (gb < 10 ? String(format: "%.2f", gb) : gb < 100 ? String(format: "%.1f", gb) : String(format: "%.0f", gb), "GB/s")
+        }
+    }
+
+    private static func padLeft(_ string: String, to width: Int) -> String {
+        string.count >= width ? string : String(repeating: " ", count: width - string.count) + string
+    }
+
+    private static func padRight(_ string: String, to width: Int) -> String {
+        string.count >= width ? string : string + String(repeating: " ", count: width - string.count)
+    }
 }

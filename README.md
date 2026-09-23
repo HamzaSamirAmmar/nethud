@@ -83,6 +83,7 @@ xattr -d com.apple.quarantine /Applications/NetHUD.app
 ```
 
 or right-click NetHUD.app → **Open** → **Open** in Finder.
+
 ## Privacy
 
 NetHUD collects nothing, sends nothing, and phones nobody. It reads interface
