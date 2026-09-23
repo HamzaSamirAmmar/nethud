@@ -39,16 +39,40 @@ A tiny macOS menu bar app that shows live network speeds:
 
 ### Homebrew
 
+The right command depends on your Homebrew version — check it with:
+
+```bash
+brew --version
+```
+
+**Homebrew 4.x or older** — the quarantine flag still exists, use it:
+
+```bash
+brew install --cask HamzaSamirAmmar/tap/nethud --no-quarantine
+```
+
+(Tip: `export HOMEBREW_CASK_OPTS="--no-quarantine"` in your shell profile
+makes it permanent for every cask.)
+
+**Homebrew 5.0+** (2025 and later) — the flag was removed, so install plain
+and clear the attribute once:
+
 ```bash
 brew install --cask HamzaSamirAmmar/tap/nethud
 xattr -d com.apple.quarantine /Applications/NetHUD.app
 ```
 
-The second line approves the app with Gatekeeper — NetHUD is ad-hoc signed (not
-notarized), so macOS blocks the downloaded copy on first launch otherwise. If
-your Homebrew supports it, you can append `--no-quarantine` to the install
-command instead; on some versions that flag doesn't exist, which is why the
-`xattr` line is the reliable path.
+**Not sure which one you have?** This check works on any version — if it
+prints anything, your brew supports the flag:
+
+```bash
+brew install --help | grep quarantine
+```
+
+Either way: NetHUD is ad-hoc signed (not notarized), so macOS blocks the
+downloaded copy on first launch until one of the above approves it. If the
+app ever refuses to open, run the `xattr` line once (or right-click the app
+in Finder → **Open** → **Open**) and you're set.
 
 ### From a release
 
