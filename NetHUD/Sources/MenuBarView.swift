@@ -39,8 +39,18 @@ struct MenuBarView: View {
             }
             .controlSize(.large)
             .padding(.top, 2)
+
+            Text("NetHUD \(Self.versionString)")
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+                .frame(maxWidth: .infinity)
+                .padding(.top, 6)
         }
         .padding(16)
+    }
+
+    private static var versionString: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1.0.0"
     }
 
     // MARK: - Sections

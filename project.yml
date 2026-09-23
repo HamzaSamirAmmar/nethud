@@ -17,16 +17,22 @@ targets:
     platform: macOS
     sources:
       - path: NetHUD/Sources
+      - path: NetHUD/Resources
+    info:
+      path: NetHUD/Info.plist
+      properties:
+        CFBundleDisplayName: NetHUD
+        CFBundleIconFile: AppIcon
+        CFBundleShortVersionString: "1.0.0"
+        LSApplicationCategoryType: public.app-category.utilities
+        LSUIElement: true
+        NSPrincipalClass: NSApplication
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: personal.hamza.nethud
         PRODUCT_NAME: NetHUD
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
-        GENERATE_INFOPLIST_FILE: "YES"
-        INFOPLIST_KEY_CFBundleDisplayName: NetHUD
-        INFOPLIST_KEY_LSUIElement: "YES"
-        DEVELOPMENT_ASSET_PATHS: ""
 
 schemes:
   NetHUD:
