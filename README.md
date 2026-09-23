@@ -40,8 +40,11 @@ A tiny macOS menu bar app that shows live network speeds:
 ### Homebrew
 
 ```bash
-brew install --cask HamzaSamirAmmar/tap/nethud
+brew install --cask HamzaSamirAmmar/tap/nethud --no-quarantine
 ```
+
+> `--no-quarantine` matters: the app is ad-hoc signed and not notarized, so
+> Gatekeeper would otherwise block it on first launch.
 
 ### From a release
 
@@ -49,8 +52,8 @@ Download `NetHUD.zip` from the [Releases](../../releases) page, unzip, and drag
 `NetHUD.app` to `/Applications`.
 
 > The app is not notarized, so macOS shows an "unidentified developer" warning
-> on first launch. Right-click the app → **Open** → **Open** to approve it once.
-> If you install via Homebrew, this step is skipped.
+> on first launch. Right-click the app → **Open** → **Open** to approve it once,
+> or install via Homebrew with `--no-quarantine` to skip the dance entirely.
 
 ### Build from source
 
