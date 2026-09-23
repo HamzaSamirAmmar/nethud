@@ -83,12 +83,6 @@ xattr -d com.apple.quarantine /Applications/NetHUD.app
 ```
 
 or right-click NetHUD.app → **Open** → **Open** in Finder.
-
-**A wall of warnings about other apps (vlc, firefox, blender…).** That's your
-Homebrew installation being outdated — the cask definitions on your machine are
-newer than the `brew` binary itself. Fix with `brew update`. It's unrelated to
-NetHUD.
-
 ## Privacy
 
 NetHUD collects nothing, sends nothing, and phones nobody. It reads interface
