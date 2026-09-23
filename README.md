@@ -40,11 +40,15 @@ A tiny macOS menu bar app that shows live network speeds:
 ### Homebrew
 
 ```bash
-brew install --cask HamzaSamirAmmar/tap/nethud --no-quarantine
+brew install --cask HamzaSamirAmmar/tap/nethud
+xattr -d com.apple.quarantine /Applications/NetHUD.app
 ```
 
-> `--no-quarantine` matters: the app is ad-hoc signed and not notarized, so
-> Gatekeeper would otherwise block it on first launch.
+The second line approves the app with Gatekeeper — NetHUD is ad-hoc signed (not
+notarized), so macOS blocks the downloaded copy on first launch otherwise. If
+your Homebrew supports it, you can append `--no-quarantine` to the install
+command instead; on some versions that flag doesn't exist, which is why the
+`xattr` line is the reliable path.
 
 ### From a release
 
@@ -68,6 +72,22 @@ Or open `NetHUD.xcodeproj` in Xcode and press Cmd+R.
 
 Start at login: click the NetHUD menu bar item and flip **Start at Login**
 (or add it manually under System Settings → General → Login Items).
+
+## Troubleshooting
+
+**The app won't open / quits immediately.** Gatekeeper is blocking the
+un-notarized download. Approve it once:
+
+```bash
+xattr -d com.apple.quarantine /Applications/NetHUD.app
+```
+
+or right-click NetHUD.app → **Open** → **Open** in Finder.
+
+**A wall of warnings about other apps (vlc, firefox, blender…).** That's your
+Homebrew installation being outdated — the cask definitions on your machine are
+newer than the `brew` binary itself. Fix with `brew update`. It's unrelated to
+NetHUD.
 
 ## Privacy
 
