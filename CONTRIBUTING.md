@@ -3,6 +3,12 @@
 Thanks for your interest! NetHUD is a small app with a deliberately tiny scope,
 so before opening a PR for a new feature, please open an issue first to discuss it.
 
+## Branching
+
+Development happens on the **`dev`** branch — it should always build and run.
+`main` receives merges from `dev` and is where release tags are cut. PRs
+target `dev`.
+
 ## Development setup
 
 ```bash
@@ -23,6 +29,7 @@ Requirements: macOS 13+, Xcode 14+.
 
 ## Releasing (maintainers)
 
-1. Update `MARKETING_VERSION` + `CHANGELOG.md`
-2. `git tag vX.Y.Z && git push --tags` — CI builds and publishes the Release
-3. Update the Homebrew cask with the new version + SHA256
+1. Merge `dev` into `main` (`git switch main && git merge dev`)
+2. Update `MARKETING_VERSION` + `CHANGELOG.md`
+3. `git tag vX.Y.Z && git push && git push --tags` — CI builds and publishes the Release
+4. Update the Homebrew cask with the new version + SHA256
