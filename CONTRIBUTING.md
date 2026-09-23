@@ -29,7 +29,14 @@ Requirements: macOS 13+, Xcode 14+.
 
 ## Releasing (maintainers)
 
-1. Merge `dev` into `main` (`git switch main && git merge dev`)
-2. Update `MARKETING_VERSION` + `CHANGELOG.md`
-3. `git tag vX.Y.Z && git push && git push --tags` — CI builds and publishes the Release
-4. Update the Homebrew cask with the new version + SHA256
+> `main` is protected — it only accepts changes via pull request. `dev` allows
+> direct pushes from the maintainer but no force-pushes or deletions.
+
+1. Open a PR from `dev` into `main` (or via CLI):
+   `gh pr create --base main --head dev --fill`
+2. Merge it (CI runs on the PR; no approvals required for solo merges)
+3. On `main`: update `MARKETING_VERSION` + `CHANGELOG.md` via a small PR
+   (or bump the version on `dev` before step 1)
+4. Tag the release: `git tag vX.Y.Z && git push origin vX.Y.Z` — tags are not
+   blocked by branch protection; CI builds and publishes the Release
+5. Update the Homebrew cask with the new version + SHA256
