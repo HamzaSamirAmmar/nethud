@@ -6,7 +6,7 @@ so before opening a PR for a new feature, please open an issue first to discuss 
 ## Development setup
 
 ```bash
-git clone https://github.com/<your-github-username>/nethud.git
+git clone https://github.com/HamzaSamirAmmar/nethud.git
 cd nethud
 xcodegen generate          # regenerates NetHUD.xcodeproj (requires: brew install xcodegen)
 open NetHUD.xcodeproj      # then Cmd+R

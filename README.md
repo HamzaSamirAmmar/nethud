@@ -40,7 +40,7 @@ A tiny macOS menu bar app that shows live network speeds:
 ### Homebrew
 
 ```bash
-brew install --cask <your-github-username>/tap/nethud
+brew install --cask HamzaSamirAmmar/tap/nethud
 ```
 
 ### From a release
