@@ -61,7 +61,8 @@ cp -R build/Release/Release/NetHUD.app /Applications/
 
 Or open `NetHUD.xcodeproj` in Xcode and press Cmd+R.
 
-Start at login: System Settings → General → Login Items → add `NetHUD.app`.
+Start at login: click the NetHUD menu bar item and flip **Start at Login**
+(or add it manually under System Settings → General → Login Items).
 
 ## Privacy
 

@@ -3,6 +3,15 @@ import SwiftUI
 struct MenuBarView: View {
     @ObservedObject var monitor: TrafficMonitor
 
+    private var loginBinding: Binding<Bool> {
+        Binding(
+            get: { LoginItemManager.isEnabled },
+            set: { enabled in
+                _ = LoginItemManager.setEnabled(enabled)
+            }
+        )
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             header
@@ -37,6 +46,8 @@ struct MenuBarView: View {
                 }
             }
             .pickerStyle(.menu)
+
+            Toggle("Start at Login", isOn: loginBinding)
 
             Button(role: .destructive) {
                 NSApplication.shared.terminate(nil)
