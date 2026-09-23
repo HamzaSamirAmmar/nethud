@@ -9,8 +9,7 @@ struct NetHUDApp: App {
             MenuBarView(monitor: monitor)
                 .frame(minWidth: 320)
         } label: {
-            Text("↑\(Format.speed(monitor.upSpeed)) ↓\(Format.speed(monitor.downSpeed))")
-                .monospacedDigit()
+            MenuBarLabel(monitor: monitor)
         }
         .menuBarExtraStyle(.window)
     }

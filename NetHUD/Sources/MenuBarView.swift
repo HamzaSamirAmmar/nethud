@@ -31,6 +31,13 @@ struct MenuBarView: View {
             }
             .pickerStyle(.segmented)
 
+            Picker("Theme", selection: $monitor.theme) {
+                ForEach(MenuBarTheme.allCases) { theme in
+                    Text(theme.displayName).tag(theme)
+                }
+            }
+            .pickerStyle(.menu)
+
             Button(role: .destructive) {
                 NSApplication.shared.terminate(nil)
             } label: {

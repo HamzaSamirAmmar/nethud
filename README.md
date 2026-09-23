@@ -17,6 +17,12 @@ A tiny macOS menu bar app that shows live network speeds:
   `utun*` when a VPN is up), so traffic is never double-counted across tunnels
 - **Per-interface breakdown** and session totals one click away
 - Configurable refresh rate (0.5s / 1s / 2s)
+- Five **menu bar themes**:
+  - *Classic* — `↑12 KB/s ↓1.2 MB/s`
+  - *Compact* — `↑12K ↓1.2M` (notch-friendly)
+  - *Vivid* — Classic with green ↑ / blue ↓ arrows
+  - *Vivid Compact* — colored + compact
+  - *Zen* — `↓1.2M`, download only
 - Reads byte counters via `getifaddrs()` — no permissions, no network extension,
   no third-party dependencies
 

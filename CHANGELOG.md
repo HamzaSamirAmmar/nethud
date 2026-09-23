@@ -8,6 +8,8 @@ and the project uses [Semantic Versioning](https://semver.org).
 
 ### Added
 - Live upload/download speeds in the macOS menu bar
+- Five menu bar themes: Classic, Compact, Vivid, Vivid Compact, and Zen
+  (download-only) — remembered across launches
 - Primary-interface tracking (default route) — Wi-Fi and VPN aware, no double counting
 - Per-interface breakdown, session totals, and a refresh-rate picker (0.5s / 1s / 2s)
 - Wrap-aware 32-bit interface counter handling (4 GB rollover, interface resets)

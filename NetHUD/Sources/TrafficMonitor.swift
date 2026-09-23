@@ -32,6 +32,10 @@ final class TrafficMonitor: ObservableObject {
         }
     }
 
+    @Published var theme: MenuBarTheme = .classic {
+        didSet { UserDefaults.standard.set(theme.rawValue, forKey: MenuBarTheme.storageKey) }
+    }
+
     // MARK: - Private state
 
     private var timer: Timer?
@@ -51,6 +55,10 @@ final class TrafficMonitor: ObservableObject {
     // MARK: - Lifecycle
 
     init() {
+        if let stored = UserDefaults.standard.string(forKey: MenuBarTheme.storageKey),
+           let restored = MenuBarTheme(rawValue: stored) {
+            theme = restored
+        }
         sample() // establish the baseline so the first tick already has a delta
         restartTimer()
     }

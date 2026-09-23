@@ -31,4 +31,18 @@ enum Format {
             return String(format: "%.2f GB", Double(total) / Double(gb))
         }
     }
+
+    /// Compact rate for the menu bar, e.g. "12.3K" or "1.2M".
+    static func speedCompact(_ bytesPerSecond: Double) -> String {
+        switch bytesPerSecond {
+        case ..<1024:
+            return String(format: "%.0fB", bytesPerSecond)
+        case ..<1_048_576:
+            return String(format: "%.1fK", bytesPerSecond / 1024)
+        case ..<1_073_741_824:
+            return String(format: "%.1fM", bytesPerSecond / 1_048_576)
+        default:
+            return String(format: "%.2fG", bytesPerSecond / 1_073_741_824)
+        }
+    }
 }
