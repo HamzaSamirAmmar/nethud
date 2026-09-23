@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:NetHUD}",
+            "name": "Debug NetHUD",
+            "target": "NetHUD",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug NetHUD"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:NetHUD}",
+            "name": "Release NetHUD",
+            "target": "NetHUD",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release NetHUD"
+        }
+    ]
+}
