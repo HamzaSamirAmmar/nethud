@@ -10,6 +10,10 @@ A tiny macOS menu bar app that shows live network speeds:
 ![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
+<p align="center">
+  <img src="Docs/hero.png" width="850" alt="NetHUD for macOS" />
+</p>
+
 ## Features
 
 - **Live upload/download speeds** in the menu bar, always visible
@@ -26,11 +30,35 @@ A tiny macOS menu bar app that shows live network speeds:
 - Reads byte counters via `getifaddrs()` — no permissions, no network extension,
   no third-party dependencies
 
-## Screenshot
+## Screenshots
 
-![Menu bar — light](Docs/menubar-light.png) ![Menu bar — dark](Docs/menubar-dark.png)
+### Native Menu Bar
 
-![The NetHUD dropdown](Docs/dropdown.png)
+Compact, monospaced live speed readout that never causes neighboring icons to jitter or shift:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="Docs/menubar-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="Docs/menubar-light.png">
+  <img alt="NetHUD in macOS Menu Bar" src="Docs/menubar-dark.png" width="480">
+</picture>
+
+### Detailed Popover
+
+Click the menu bar readout anytime to inspect interface breakdowns, session usage, and settings:
+
+<p align="center">
+  <img src="Docs/dropdown-dark.png" width="370" alt="NetHUD Dropdown — Dark Mode" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="Docs/dropdown-light.png" width="370" alt="NetHUD Dropdown — Light Mode" />
+</p>
+
+### Five Menu Bar Themes
+
+Choose the look that best complements your wallpaper, menu bar density, and MacBook notch:
+
+<p align="center">
+  <img src="Docs/themes.png" width="750" alt="NetHUD Themes" />
+</p>
 
 ## Install
 
