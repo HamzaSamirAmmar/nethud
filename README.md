@@ -57,6 +57,16 @@ Click the menu bar readout anytime for the live graph, per-interface speeds, and
   <img src="Docs/dropdown-light.png" width="370" alt="NetHUD Dropdown — Light Mode" />
 </p>
 
+### Settings
+
+Tap the gear (or press ⌘,) to pick a menu bar theme — each one previewed live with your current speeds — set the refresh rate, and toggle Start at Login:
+
+<p align="center">
+  <img src="Docs/settings-dark.png" width="370" alt="NetHUD Settings — Dark Mode" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="Docs/settings-light.png" width="370" alt="NetHUD Settings — Light Mode" />
+</p>
+
 ### Five Menu Bar Themes
 
 Choose the look that best complements your wallpaper, menu bar density, and MacBook notch:
