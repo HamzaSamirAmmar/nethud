@@ -1,3 +1,5 @@
+import Foundation
+
 enum Format {
 
     /// Human-readable rate, e.g. "12.3 KB/s" or "1.2 MB/s".
@@ -12,6 +14,22 @@ enum Format {
         default:
             return String(format: "%.2f GB/s", bytesPerSecond / 1_073_741_824)
         }
+    }
+
+    /// `speed(_:)` split into number and unit, for large readouts where the
+    /// unit is set smaller than the value.
+    static func speedParts(_ bytesPerSecond: Double) -> (value: String, unit: String) {
+        let full = speed(bytesPerSecond)
+        guard let space = full.lastIndex(of: " ") else { return (full, "") }
+        return (String(full[..<space]), String(full[full.index(after: space)...]))
+    }
+
+    /// Session length, e.g. "2h 05m", "12m", "<1m".
+    static func duration(_ interval: TimeInterval) -> String {
+        let minutes = Int(interval / 60)
+        if minutes < 1 { return "<1m" }
+        if minutes < 60 { return "\(minutes)m" }
+        return String(format: "%dh %02dm", minutes / 60, minutes % 60)
     }
 
     /// Human-readable total, e.g. "1.2 GB" or "834 MB" (decimal units).

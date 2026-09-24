@@ -20,10 +20,13 @@ final class StatusItemController: NSObject {
         super.init()
 
         popover.behavior = .transient
-        popover.contentViewController = NSHostingController(rootView: MenuBarView(monitor: monitor))
+        let hosting = NSHostingController(rootView: MenuBarView(monitor: monitor))
+        // Track SwiftUI's size so the popover grows/shrinks between the
+        // dashboard and Settings instead of clipping.
+        hosting.sizingOptions = .preferredContentSize
+        popover.contentViewController = hosting
 
         if let button = statusItem.button {
-            button.toolTip = "NetHUD — live network speeds"
             button.setAccessibilityLabel("NetHUD network speeds")
             button.target = self
             button.action = #selector(togglePopover(_:))
@@ -41,33 +44,14 @@ final class StatusItemController: NSObject {
     private func renderTitle() {
         guard let button = statusItem.button else { return }
 
-        let theme = monitor.theme
-        let compact = theme.isCompact
-        let upload = "↑" + (compact ? Format.speedCompactFixed(monitor.upSpeed) : Format.speedFixed(monitor.upSpeed))
-        let download = "↓" + (compact ? Format.speedCompactFixed(monitor.downSpeed) : Format.speedFixed(monitor.downSpeed))
-
-        // Fully monospaced font + fixed-width fields → the item's width
-        // never changes, so menu bar neighbors never shift around.
-        let font = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
-        let title = NSMutableAttributedString()
-
-        if theme.showsUpload {
-            title.append(NSAttributedString(string: upload, attributes: [.font: font]))
-            if theme.isColored {
-                title.addAttribute(.foregroundColor, value: ThemePalette.upload,
-                                   range: NSRange(location: 0, length: upload.count))
-            }
-            title.append(NSAttributedString(string: " ", attributes: [.font: font]))
-        }
-
-        let downloadStart = title.length
-        title.append(NSAttributedString(string: download, attributes: [.font: font]))
-        if theme.isColored {
-            title.addAttribute(.foregroundColor, value: ThemePalette.download,
-                               range: NSRange(location: downloadStart, length: download.count))
-        }
-
-        button.attributedTitle = title
+        button.attributedTitle = MenuBarTitle.make(
+            theme: monitor.theme,
+            up: monitor.upSpeed,
+            down: monitor.downSpeed
+        )
+        button.toolTip = monitor.isOnline
+            ? "NetHUD — ↓ \(Format.speed(monitor.downSpeed))  ↑ \(Format.speed(monitor.upSpeed))"
+            : "NetHUD — offline"
     }
 
     // MARK: - Popover
