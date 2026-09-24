@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AD0F93D3194F5A3902319BF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4163CB5E78348B101C90E1 /* SettingsView.swift */; };
 		13D6500D2D0A437FF631FD46 /* StatusItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BC477D0217E9954EBB4A10 /* StatusItemController.swift */; };
 		1AAE9134FDEF3302EE579402 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C072D7FDD96898AA3D0F2E /* Theme.swift */; };
+		31164359FF46CE1FBF3E730F /* TrafficGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50205FF472DD7EBD067D5E61 /* TrafficGraph.swift */; };
 		31B84E02B118E098B0BF828F /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A004F7265910D2DCF5CE3E5E /* AppIcon.icns */; };
 		46D8A3CDE8502B6B65D64421 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB8534359FD1BD21B4D659 /* Format.swift */; };
 		50AE417BFD45FC844A881CB8 /* TrafficMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0606315A8A41CC6C977760F9 /* TrafficMonitor.swift */; };
 		AF70D9900819D40AA8BBF755 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA85900259CAE1A7C88D491 /* MenuBarView.swift */; };
 		DAD1C0DB78E81FE44DD7805A /* LoginItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089C3A3228C343B35BE39862 /* LoginItemManager.swift */; };
+		F5FE5F500B0F58E6600686BF /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5021976069AC6059F82FB31 /* DesignSystem.swift */; };
 		FB9797FE2940D668F6E4CEA3 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DFEFE5ABA213153423561B /* App.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,8 +24,11 @@
 		05DFEFE5ABA213153423561B /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		0606315A8A41CC6C977760F9 /* TrafficMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficMonitor.swift; sourceTree = "<group>"; };
 		089C3A3228C343B35BE39862 /* LoginItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemManager.swift; sourceTree = "<group>"; };
+		50205FF472DD7EBD067D5E61 /* TrafficGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficGraph.swift; sourceTree = "<group>"; };
 		5929B223B5323F16FAAF63FF /* NetHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A004F7265910D2DCF5CE3E5E /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		AE4163CB5E78348B101C90E1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D5021976069AC6059F82FB31 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		E9BB8534359FD1BD21B4D659 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		EFA85900259CAE1A7C88D491 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		F0BC477D0217E9954EBB4A10 /* StatusItemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemController.swift; sourceTree = "<group>"; };
@@ -42,11 +48,14 @@
 			isa = PBXGroup;
 			children = (
 				05DFEFE5ABA213153423561B /* App.swift */,
+				D5021976069AC6059F82FB31 /* DesignSystem.swift */,
 				E9BB8534359FD1BD21B4D659 /* Format.swift */,
 				089C3A3228C343B35BE39862 /* LoginItemManager.swift */,
 				EFA85900259CAE1A7C88D491 /* MenuBarView.swift */,
+				AE4163CB5E78348B101C90E1 /* SettingsView.swift */,
 				F0BC477D0217E9954EBB4A10 /* StatusItemController.swift */,
 				F3C072D7FDD96898AA3D0F2E /* Theme.swift */,
+				50205FF472DD7EBD067D5E61 /* TrafficGraph.swift */,
 				0606315A8A41CC6C977760F9 /* TrafficMonitor.swift */,
 			);
 			path = Sources;
@@ -145,11 +154,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB9797FE2940D668F6E4CEA3 /* App.swift in Sources */,
+				F5FE5F500B0F58E6600686BF /* DesignSystem.swift in Sources */,
 				46D8A3CDE8502B6B65D64421 /* Format.swift in Sources */,
 				DAD1C0DB78E81FE44DD7805A /* LoginItemManager.swift in Sources */,
 				AF70D9900819D40AA8BBF755 /* MenuBarView.swift in Sources */,
+				0AD0F93D3194F5A3902319BF /* SettingsView.swift in Sources */,
 				13D6500D2D0A437FF631FD46 /* StatusItemController.swift in Sources */,
 				1AAE9134FDEF3302EE579402 /* Theme.swift in Sources */,
+				31164359FF46CE1FBF3E730F /* TrafficGraph.swift in Sources */,
 				50AE417BFD45FC844A881CB8 /* TrafficMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

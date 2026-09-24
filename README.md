@@ -19,9 +19,14 @@ A tiny macOS menu bar app that shows live network speeds:
 - **Live upload/download speeds** in the menu bar, always visible
 - **Primary-interface tracking** — follows the default route (`en0` on Wi-Fi,
   `utun*` when a VPN is up), so traffic is never double-counted across tunnels
-- **Per-interface breakdown** and session totals one click away
-- Configurable refresh rate (0.5s / 1s / 2s)
-- Five **menu bar themes**:
+- **Live 60-second graph** — a dark instrument panel with a mirrored chart
+  (download above the axis, upload below, each on its own scale) plus
+  session peak speeds
+- **Per-interface breakdown** with connection status, interface icons, and
+  the primary (default-route) interface highlighted
+- **Session totals** with elapsed time and a one-click reset
+- Configurable refresh rate (0.5s / 1s / 2s), remembered across launches
+- Five **menu bar themes**, previewed live in Settings with your current speeds:
   - *Classic* — `↑12 KB/s ↓1.2 MB/s`
   - *Compact* — `↑12K ↓1.2M` (notch-friendly)
   - *Vivid* — Classic with green ↑ / blue ↓ arrows
@@ -44,7 +49,7 @@ Compact, monospaced live speed readout that never causes neighboring icons to ji
 
 ### Detailed Popover
 
-Click the menu bar readout anytime to inspect interface breakdowns, session usage, and settings:
+Click the menu bar readout anytime for the live graph, per-interface speeds, and session totals (settings live behind the gear, or ⌘,):
 
 <p align="center">
   <img src="Docs/dropdown-dark.png" width="370" alt="NetHUD Dropdown — Dark Mode" />

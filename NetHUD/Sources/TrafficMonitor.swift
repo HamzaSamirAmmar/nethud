@@ -9,6 +9,21 @@ struct InterfaceSpeed: Identifiable, Equatable {
     let up: Double // bytes per second
 
     var id: String { name }
+
+    /// SF Symbol for the interface kind.
+    var symbolName: String {
+        if name == "en0" { return "wifi" }
+        if name.hasPrefix("utun") { return "lock.shield" }
+        if name.hasPrefix("en") { return "cable.connector" }
+        if name.hasPrefix("bridge") { return "point.3.connected.trianglepath.dotted" }
+        return "network"
+    }
+}
+
+/// One point of the live graph.
+struct TrafficSample: Equatable {
+    let down: Double // bytes per second
+    let up: Double // bytes per second
 }
 
 /// Polls per-interface byte counters via `getifaddrs` and publishes live speeds.
@@ -25,10 +40,27 @@ final class TrafficMonitor: ObservableObject {
     @Published private(set) var interfaces: [InterfaceSpeed] = []
     @Published private(set) var sessionDownloaded: UInt64 = 0
     @Published private(set) var sessionUploaded: UInt64 = 0
+    @Published private(set) var sessionStart = Date()
+    @Published private(set) var peakDown: Double = 0
+    @Published private(set) var peakUp: Double = 0
+
+    /// Primary-interface speeds over the last `graphWindow` seconds, oldest first.
+    @Published private(set) var history: [TrafficSample] = []
+
+    /// False when the Mac has no default route (no network at all).
+    @Published private(set) var isOnline = true
+
+    /// Seconds of history the graph shows, independent of refresh rate.
+    static let graphWindow: TimeInterval = 60
+
+    static let refreshIntervalKey = "refreshInterval"
+    static let refreshIntervals: [TimeInterval] = [0.5, 1, 2]
 
     @Published var refreshInterval: TimeInterval = 1.0 {
         didSet {
             guard oldValue != refreshInterval else { return }
+            UserDefaults.standard.set(refreshInterval, forKey: Self.refreshIntervalKey)
+            trimHistory()
             restartTimer()
         }
     }
@@ -64,6 +96,10 @@ final class TrafficMonitor: ObservableObject {
            let restored = MenuBarTheme(rawValue: stored) {
             theme = restored
         }
+        let storedInterval = UserDefaults.standard.double(forKey: Self.refreshIntervalKey)
+        if Self.refreshIntervals.contains(storedInterval) {
+            refreshInterval = storedInterval
+        }
 
         // Re-baseline after the Mac wakes so the first post-sleep sample
         // doesn't spread traffic across the whole sleep window.
@@ -91,6 +127,25 @@ final class TrafficMonitor: ObservableObject {
         lastCounters = nil
         lastSampleDate = nil
         sample()
+    }
+
+    /// Zeroes the session totals and peaks, starting a new session now.
+    func resetSession() {
+        sessionDownloaded = 0
+        sessionUploaded = 0
+        peakDown = 0
+        peakUp = 0
+        sessionStart = Date()
+    }
+
+    private var historyCapacity: Int {
+        max(Int((Self.graphWindow / refreshInterval).rounded()), 2)
+    }
+
+    private func trimHistory() {
+        if history.count > historyCapacity {
+            history.removeFirst(history.count - historyCapacity)
+        }
     }
 
     private func restartTimer() {
@@ -164,6 +219,10 @@ final class TrafficMonitor: ObservableObject {
         upSpeed = primaryUp
         sessionDownloaded &+= UInt64(primaryDown * elapsed)
         sessionUploaded &+= UInt64(primaryUp * elapsed)
+        peakDown = max(peakDown, primaryDown)
+        peakUp = max(peakUp, primaryUp)
+        history.append(TrafficSample(down: primaryDown, up: primaryUp))
+        trimHistory()
         interfaces = rows.sorted { ($0.down + $0.up) > ($1.down + $1.up) }
 
         lastCounters = counters
@@ -242,6 +301,9 @@ final class TrafficMonitor: ObservableObject {
 
             DispatchQueue.main.async {
                 self?.primaryInterface = found
+                if self?.isOnline != (found != nil) {
+                    self?.isOnline = found != nil
+                }
             }
         }
     }
