@@ -4,6 +4,19 @@ All notable changes to NetHUD are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and the project uses [Semantic Versioning](https://semver.org).
 
+## [2.0.1] — 2026-09-25
+
+### Fixed
+- Close popover on unfocus (clicking outside, switching applications, or deactivation), matching macOS Control Center and Wi-Fi behavior
+- Ensure the popover always reopens to a fresh dashboard rather than retaining previous subscreen navigation (such as Settings)
+
+## [2.0.0] — 2026-09-24
+
+### Added
+- Redesigned popover: instrument panel, live traffic graph, and Settings screen
+- Five menu bar themes with live previews in Settings
+- Configurable update intervals (0.5s / 1s / 2s)
+
 ## [1.0.1] — 2026-09-23
 
 ### Fixed
